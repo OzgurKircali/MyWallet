@@ -1,0 +1,21 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+<link href="~/Content/NavigationBar.css" rel="stylesheet" />
+<link href="~/Content/Homepage.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "LoanView";
+    Layout = "/Views/Shared/NewLayout.cshtml";
+}
+
+<div class="left-item-button">
+    @Html.Action("AddLoan")
+</div>
+
+<div class="left-item">
+    @Html.Action("_LoanViewPartial", "Loan")
+</div>
+@Html.Raw(TempData["AddLoanError"])

@@ -1,0 +1,175 @@
+﻿<link href="~/Content/Homepage.css" rel="stylesheet" />
+<link href="~/Content/NavigationBar.css" rel="stylesheet" />
+
+
+@model MyWalletProject.Models.HomePageModel
+
+
+
+@using System.Web.UI.WebControls
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.Editors }
+)
+
+@Scripts.Render("~/Scripts/DevExtremeBundle")
+
+@Styles.Render("~/Content/DevExtremeBundle")
+
+
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "/Views/Shared/NewLayout.cshtml";
+
+
+}
+
+
+
+
+<body>
+
+
+    <div class="context">
+
+        <div class="flex-container">
+            <div class="left-item">
+                @Html.Action("AddIncome")
+            </div>
+            <div class="left-item">
+                @Html.Action("AddRepetitiveIncome")
+            </div>
+
+            <div class="middle">
+                Bakiye
+                <br />
+                <div id="Balance" class="black">
+                    @Model.Balance
+                </div>
+            </div>
+
+            <div class="right-item">
+                @Html.Action("AddRepetitiveExpense")
+            </div>
+            <div class="right-item">
+                @Html.Action("AddExpense")
+            </div>
+        </div>
+
+        <form>
+            <div class="month">
+                <button type="button" class="monthButton" onclick="location.href='@Url.Action("MonthDecrease", "Home", Model)'">
+                    Önceki Ay
+                </button>
+                <div class="blue">
+                    @Model.Month @Model.Year
+                </div>
+                <button type="button" class="monthButton" onclick="location.href='@Url.Action("MonthIncrease", "Home", Model)'">
+                    Sonraki Ay
+                </button>
+            </div>
+        </form>
+
+
+
+        <div class="flex-container">
+            <div style="width:430px;">
+                <div class="left-item">
+                    <label style="font-family: Coolvetica; margin-bottom: 10px; color: rgb(16, 128, 200); font-size: 20px; float:left;">Bu Ay Gerçekleşen Kazançlarım</label>
+                    @Html.Action("IncomeViewPartial", Model)
+                </div>
+                <div class="left-item" style="margin-top:40px;">
+                    <label style="font-family: Coolvetica; margin-bottom: 10px; color: rgb(16, 128, 200); font-size: 20px; float: left;">Yaklaşan Kazançlarım</label>
+                    @Html.Action("RepetitiveIncomeViewPartial", "Home")
+                </div>
+            </div>
+            <div class="middle-conteiner">
+                <div class="middleTop">
+                    <div class="middleNumbers">
+                        Aylık Kazanç
+                        <br />
+                        <div class="green">
+                            @Model.MonthlyIncome
+                        </div>
+                    </div>
+                    <div class="middleNumbers">
+                        Aylık Toplam
+                        <br />
+                        <div id="MonthlyBalance" class="black">
+                            @Model.MonthlyBalance
+                        </div>
+                    </div>
+                    <div class="middleNumbers">
+                        Aylık Harcama
+                        <br />
+                        <div class="red">
+                            @Model.MonthlyExpense
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="middleText">
+                    @ViewBag.DifferenceNotification
+                    <br />
+                    @ViewBag.MaxExpenseNotification
+                    <br />
+                    @ViewBag.MaxCategory
+                    <br />
+                    @ViewBag.DifferenceBalanceNotification
+                    <br />
+                    @ViewBag.DifferencePreviousBalanceNotification
+
+                </div>
+
+                <div class="middle">
+                    @Html.Action("ExpensePieChart")
+                </div>
+                <div class="middle">
+
+                    @Html.Action("IncomeExpenseChartPartial", "Home")
+
+                </div>
+            </div>
+
+
+            <div>
+                <div class="right-item-Table">
+                    <label style="font-family: Coolvetica; margin-bottom: 10px; color: rgb(16, 128, 200); font-size: 20px; float:right;">Bu Ay Gerçekleşen Harcamalarım</label>
+                    @Html.Action("ExpenseViewPartial", Model)
+                </div>
+
+
+                <div class="right-item-Table" style="margin-top:40px;">
+                   
+                        <label style="font-family: Coolvetica; margin-bottom: 10px; color: rgb(16, 128, 200); font-size: 20px; float:right;">Yaklaşan Harcamalarım</label>
+                    
+                         @Html.Action("RepetitiveExpenseViewPartial", "Home")
+                </div>
+            </div>
+
+        </div>
+
+        <div class="date">
+            @Model.Date
+        </div>
+
+    </div>
+    @Html.Raw(TempData["AddIncomeError"])
+    @Html.Raw(TempData["AddRepetitiveIncomeError"])
+</body>
+
+
+
+
+
+

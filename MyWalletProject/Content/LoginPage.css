@@ -1,0 +1,77 @@
+﻿.form-group {
+    width: 80%;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    font-family: Coolvetica;
+    font-size: 20px;
+ 
+}
+
+
+.loginArea {
+    padding-top: 170px;
+    padding-left: 1200px;
+    display:table;
+}
+
+.header {
+    text-align: center;
+    margin: auto;
+    padding-top: 20px;
+    font-family: Coolvetica;
+
+}
+
+.buttons {
+    margin: auto;
+    padding-top: 20px;
+    text-align: center;
+    font-family: Coolvetica;
+}
+.button {
+    border-radius: 10px;
+    border-color: darkgreen;
+    background-color: darkgreen;
+    border-width: 2px;
+    border-style: solid;
+    font-family: Coolvetica;
+}
+    .button:hover {
+        background-color: transparent;
+        color: darkgreen;
+    }
+.buttonRegister {
+    border-radius: 10px;
+    border-color: rgb(16, 128, 200);
+    border-width: 2px;
+    border-style: solid;
+    background-color: rgb(16, 128, 200);
+    color: white;
+    font-family: Coolvetica;
+}
+    .buttonRegister:hover {
+        background-color: transparent;
+        color: rgb(16, 128, 200);
+    }
+.textBox {
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: rgb(16, 128, 200);
+    background-color: transparent;
+    font-family:Coolvetica;
+    font-size:15px;
+    height:35px;
+}
+    .textBox:hover {
+        border-color: darkgreen;
+    }
+
+.box {
+    background-image: url(../img/MyWalletBackgroundLogin.jpg);
+    background-size: cover;
+    height: 100vh;
+    background-repeat: no-repeat;
+    clear: both;
+    margin-top:-10px;
+}

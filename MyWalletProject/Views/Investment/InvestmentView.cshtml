@@ -1,0 +1,61 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@model MyWalletProject.Models.CurrencyModel
+
+<link href="~/Content/Homepage.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "InvestmentView";
+    Layout = "/Views/Shared/NewLayout.cshtml";
+}
+
+<style>
+    .Currency {
+        display: inline-block;
+        font-family: Coolvetica;
+        font-size: 32px;
+        padding: 10px 10px 10px 10px;
+        border-style:solid;
+        border-radius: 10px;
+        border-width: 3px;
+        border-color: rgb(16, 128, 200);
+        margin-left: 150px;
+        float:inline-start;
+    }
+</style>
+
+<div class="left-item-button">
+    @Html.Action("AddInvestment")
+
+</div>
+
+
+
+<div class="left-item" style="display:flex;">
+    @Html.Action("_InvestmentViewPartial", "Investment")
+    <div style="display:inline-block">
+        <div class="Currency">
+            Dolar: @Model.DolarCurrency
+        </div>
+
+        <div class="Currency">
+            Euro: @Model.EuroCurrency
+        </div>
+
+        <div class="Currency">
+            Pound: @Model.PoundCurrency
+        </div>
+
+    </div>
+    
+</div>
+<div style="font-family:Coolvetica; font-size:32px; position:absolute; right:525px; top:250px;">
+    Yatırımlarınızın toplam değeri: @ViewBag.TotalAsTL
+</div>
+
+
+
+@Html.Raw(TempData["AddInvestmentError"])

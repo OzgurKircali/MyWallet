@@ -1,0 +1,98 @@
+﻿
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "LoanView";
+        settings.CallbackRouteValues = new { Controller = "Loan", Action = "_LoanViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Loan", Action = "LoanViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Loan", Action = "LoanViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Loan", Action = "LoanViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = 700;
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+
+        settings.KeyFieldName = "LoanID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("LoanID").Visible = false;
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "LoanAmount";
+            c.Caption = "Kredi Çekilen Miktar";
+            c.CellStyle.Font.Size = 14;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkGreen;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "LoanDebt";
+            c.Caption = "Kredi Borcu";
+            c.CellStyle.Font.Size = 20;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkRed;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "LoanDate";
+            c.Caption = "Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Instalment";
+            c.Caption = "Vade Miktarı";
+            c.CellStyle.Font.Size = 14;
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "PaymentDay";
+            c.Caption = "Vade Ödeme Günü";
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "LoanDescription";
+            c.Caption = "Açıklama";
+            c.CellStyle.Font.Size = 14;
+        });
+
+
+
+
+
+
+
+        settings.Columns.Add("Username").Visible = false;
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+

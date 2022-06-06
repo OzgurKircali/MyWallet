@@ -1,0 +1,128 @@
+﻿.left-item {
+    
+    flex-wrap: nowrap;
+    padding-left: 30px;
+    float: left;
+}
+.left-item-button {
+    flex-wrap: nowrap;
+    padding-left:30px;
+    padding-right:1080px;
+    padding-bottom:30px;
+    float: left;
+}
+
+.right-item {
+    flex-wrap: nowrap;
+    padding-right: 30px;
+    justify-content:flex-end;
+}
+
+.right-item-Table {
+    padding-right: 30px;
+    justify-content: flex-end;
+    width:400px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-top: 30px;
+    
+}
+.flex-container-tables {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-top: 50px;
+}
+
+.btn-lg {
+    width: 255px;
+    border-radius: 10px;
+}
+
+.middle {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 16pt;
+    text-align: center;
+    font-family: Coolvetica;
+    color: rgb(16, 128, 200);
+}
+
+.middleNumbers {
+    margin-inline:30px;
+    font-size: 16pt;
+    text-align: center;
+    font-family: Coolvetica;
+    color: rgb(16, 128, 200);
+}
+.middleText {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 12pt;
+    text-align: center;
+    font-family: Coolvetica;
+    color: rgb(16, 128, 200);
+}
+
+.middleTop {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.middle-conteiner {
+    justify-content: center;
+    margin-inline:auto;
+}
+
+.date {
+    
+    font-family: Coolvetica;
+    padding-left: 10px;
+}
+
+.red {
+    color: darkred;
+    font-size: 20pt;
+}
+.black {
+    color: black;
+    font-size: 20pt;
+}
+.green {
+    color: green;
+    font-size: 20pt;
+}
+.blue {
+    color: rgb(16, 128, 200);
+    font-size: 24pt;
+}
+
+.month {
+    display: flex;
+    justify-content: center;
+    font-family: Coolvetica;
+    font-size:24px;
+    margin-top:20px;
+}
+
+
+.monthButton {
+    border-radius: 10px;
+    border-color: rgb(16, 128, 200);
+    background-color: transparent;
+    border-width: 3px;
+    border-style: solid;
+    font-size: 14px;
+    padding-inline: 30px;
+    margin-inline: 60px;
+    font-family: Coolvetica;
+}
+    .monthButton:hover {
+        background-color: rgb(16, 128, 200);
+        color: white;
+        transition-duration: 0.3s;
+        cursor:pointer;
+    }

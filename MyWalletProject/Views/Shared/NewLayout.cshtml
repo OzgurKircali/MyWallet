@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <link href="~/Content/NewLayoutStyle.css" rel="stylesheet" />
+    <title>MyWallet - @User.Identity.Name</title>
+</head>
+<body style="margin: 0; ">
+    <div>
+        <nav role="navigation" class="navigation" style="background-image: url(../img/LayoutBackground.jpg); background-repeat:no-repeat;">
+            <ul>
+                <li><a href="https://localhost:44352/home/index">Aylık Durum</a></li>
+                <li><a href="https://localhost:44352/Transaction/TransactionView">Gelir-Giderler</a></li>
+                <li><a href="https://localhost:44352/RepetitiveTransaction/RepetitiveTransactionView">Tekrarlanan Gelir-Giderler</a></li>
+                <li>
+                    <a class="dropDown">Denge Tabloları &dtrif;</a>
+                    <ul class="dropDownContent">
+                        <li><a href="https://localhost:44352/DailyView/DailyView">Günlük</a></li>
+                        <li><a href="https://localhost:44352/MonthlyView/MonthlyView">Aylık</a></li>
+                        <li><a href="https://localhost:44352/AnnualyView/AnnualyView">Yıllık</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://localhost:44352/Loan/LoanView">Krediler</a></li>
+                <li><a href="https://localhost:44352/Investment/InvestmentView">Yatırımlar</a></li>
+                <li style="margin-left:850px; display:inline-flex;">
+                    <a class="logOutDropDown">@User.Identity.Name &dtrif;</a>
+                    <ul class="iconDropDownContent">
+                        <li><a href="/Account/Logout">Çıkış Yap</a></li>
+
+
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="bodyContent">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,88 @@
+﻿@model MyWalletProject.Models.LoginModel
+
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@using System.Web.UI.WebControls
+
+<script>
+    function RegisterButtonAction() {
+        window.location.href = "/Account/Register";
+    }
+</script>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/LoginPage.css" rel="stylesheet" />
+@{
+    Layout = null;
+}
+<body>
+    <div class="box">
+        
+
+        @Html.ValidationSummary()
+
+
+        @using (Html.BeginForm())
+        {
+            <div class="loginArea">
+
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <img src="../img/logo.png" alt="logo" />
+                <div class="form-group">
+                    <label>Kullanıcı Adı</label>
+                    @Html.DevExpress().TextBoxFor(i => i.Username, settings =>
+                {
+                     settings.Properties.NullDisplayText = "Kullanıcı Adı";
+                     settings.Width = Unit.Percentage(100);
+                     settings.ControlStyle.CssClass = "textBox";
+
+               }).GetHtml()
+                </div>
+                <div class="form-group">
+                    <label>Şifre</label>
+                    @Html.DevExpress().TextBoxFor(i => i.Password, settings =>
+                         {
+                             settings.Properties.NullDisplayText = "Şifre";
+                             settings.Properties.Password = true;
+                             settings.ControlStyle.CssClass = "textBox";
+                             settings.Width = Unit.Percentage(100);
+
+                         }).GetHtml()
+                </div>
+                <div class="buttons">
+
+                    @Html.DevExpress().Button(settings =>
+               {
+                   settings.Name = "LoginButton";
+                   settings.Text = "Giriş Yap";
+                   settings.ControlStyle.CssClass = "button";
+                   settings.UseSubmitBehavior = true;
+
+               }).GetHtml()
+
+                    @Html.DevExpress().Button(settings =>
+               {
+                   settings.EnableClientSideAPI = true;
+                   settings.Name = "RegisterButton";
+                   settings.Text = "Kayıt Ol";
+                   settings.ControlStyle.CssClass = "buttonRegister";
+                   settings.ClientSideEvents.Click = "function (s,e) {RegisterButtonAction(); }";
+               }).GetHtml()
+
+                </div>
+            </div>
+
+        }
+    </div>
+</body>
+
+
+
+
+
+

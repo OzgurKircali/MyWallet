@@ -1,0 +1,88 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@using System.Web.UI.WebControls
+<link href="~/Content/NavigationBar.css" rel="stylesheet" />
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "DailyView";
+        settings.CallbackRouteValues = new { Controller = "DailyView", Action = "DailyViewPartial" };
+
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = false;
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = Unit.Percentage(100);
+        settings.Height = Unit.Percentage(100);
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+        settings.ControlStyle.CssClass = "context";
+
+        settings.KeyFieldName = "ViewID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Date";
+            c.Caption = "Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Income";
+            c.Caption = "Kazanç";
+            c.CellStyle.Font.Size = 20;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkGreen;
+
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Expense";
+            c.Caption = "Harcama";
+            c.CellStyle.Font.Size = 20;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkRed;
+
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Balance";
+            c.Caption = "Toplam";
+            c.CellStyle.Font.Size = 26;
+            c.CellStyle.ForeColor = System.Drawing.Color.Black;
+        });
+
+
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

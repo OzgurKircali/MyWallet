@@ -1,0 +1,42 @@
+﻿@(Html.DevExtreme().Chart()
+    .ID("Barchart")
+    .Size(s => s.Width(530))
+    .Margin(s=>s.Left(20))
+    
+    .DataSource(x => x
+    .Array()
+    .Data(Model)
+    )
+    .CommonSeriesSettings(s => s
+        .ArgumentField("MonthName")
+        .Type(SeriesType.Bar)
+        .BarPadding(0.5)
+        .HoverMode(ChartSeriesHoverMode.AllArgumentPoints)
+        .SelectionMode(ChartSeriesSelectionMode.AllArgumentPoints)
+
+        .Label(l => l
+            .Visible(true)
+            .Format(f => f
+                .Type(Format.FixedPoint)
+                .Precision(0)
+            )
+        )
+    )
+    .Series(s => {
+        s.Add().ValueField("Income").Name("Kazanç").Color("#008000");
+        s.Add().ValueField("Expense").Name("Harcama").Color("#D63141");
+        
+    })
+    
+    .Legend(l => l
+        .VerticalAlignment(VerticalEdge.Bottom)
+        .HorizontalAlignment(HorizontalAlignment.Center)
+    )
+    
+    .OnPointClick(@<text>
+        function(e) {
+            e.target.select();
+        }
+    </text>)
+    
+)

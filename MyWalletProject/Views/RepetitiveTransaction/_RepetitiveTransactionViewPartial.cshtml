@@ -1,0 +1,138 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@using System.Web.UI.WebControls
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "RepetitiveTransactionView";
+        settings.CallbackRouteValues = new { Controller = "RepetitiveTransaction", Action = "_RepetitiveTransactionViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "RepetitiveTransaction", Action = "RepetitiveTransactionViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "RepetitiveTransaction", Action = "RepetitiveTransactionViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "RepetitiveTransaction", Action = "RepetitiveTransactionViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = Unit.Percentage(100);
+        settings.Height = Unit.Percentage(100);
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+        settings.ControlStyle.CssClass = "context";
+
+        settings.KeyFieldName = "RepetitiveTransactionID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("RepetitiveTransactionID").Visible = false;
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionDate";
+            c.Caption = "Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            c.CellStyle.Font.Size = 14;
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionNextDate";
+            c.Caption = "Tekrarlayacağı Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.CellStyle.Font.Size = 14;
+            c.ReadOnly = true;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TypeID";
+            c.Caption = "Tip";
+            c.CellStyle.Font.Size = 14;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetTypesData();
+                p.TextField = "Type";
+                p.ValueField = "TypeID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionAmount";
+            c.Caption = "Miktar";
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionDescription";
+            c.Caption = "Açıklama";
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "CategoryID";
+            c.Caption = "Kategori";
+            c.CellStyle.Font.Size = 14;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetCategoriesData();
+                p.TextField = "Category";
+                p.ValueField = "CategoryID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "PeriodAmount";
+            c.Caption = "Tekrar Süresi";
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "PeriodTypeID";
+            c.Caption = "Tekrar Tipi";
+            c.CellStyle.Font.Size = 14;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetPeriodTypesData();
+                p.TextField = "PeriodTypeName";
+                p.ValueField = "PeriodTypeID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+
+
+
+        settings.Columns.Add("Username").Visible = false;
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

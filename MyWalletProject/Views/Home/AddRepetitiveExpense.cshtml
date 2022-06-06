@@ -1,0 +1,248 @@
+﻿<link href="~/Content/Homepage.css" rel="stylesheet" />
+@model EntityLayer.Concrete.ForRepetitive
+
+@using System.Web.UI.WebControls
+
+<style>
+    .buttonExpense {
+        border-radius: 10px;
+        border-color: rgb(215 49 65);
+        background-color: rgb(215 49 65);
+        border-width: 3px;
+        border-style: solid;
+        font-family: Coolvetica;
+    }
+
+        .buttonExpense:hover {
+            background-color: transparent;
+            color: rgb(215 49 65);
+        }
+</style>
+
+@Html.DevExpress().Button(settings =>
+{
+
+    settings.Name = "PopupRepetitiveExpenseButton";
+    settings.Text = "Tekrarlanan Harcama Ekle";
+    settings.ControlStyle.CssClass = "buttonExpense";
+    settings.UseSubmitBehavior = false;
+    settings.ClientSideEvents.Click = "function(s,e) { e.processOnServer=false; AddRepetitiveExpensePopup.Show(); }";
+    settings.Width = 255;
+    settings.Height = 50;
+    settings.ControlStyle.Font.Name = "Coolvetica";
+    settings.ControlStyle.Font.Size = 16;
+
+
+
+}).GetHtml()
+
+
+
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+
+        settings.Name = "AddRepetitiveExpensePopup";
+        settings.Width = 320;
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        //settings.PopupAnimationType = AnimationType.Fade;
+        settings.HeaderText = "Tekrarlanan Harcama Ekle";
+        settings.ControlStyle.Font.Name = "Coolvetica";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            using (Html.BeginForm("AddRepetitiveExpense", "Home", FormMethod.Post, new { id = "popupForm", @class = "edit_form" }))
+            {
+                Html.Hidden("RepetitiveTransactionID");
+
+                @Html.DevExpress().FormLayout(s =>
+                {
+                    s.Name = "RepetitiveExpenseFormLayout";
+                    s.RequiredMarkDisplayMode = RequiredMarkMode.None;
+                    s.Width = Unit.Percentage(100);
+                    s.Height = Unit.Percentage(100);
+
+                    s.NestedExtensionWidth = Unit.Percentage(100);
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpenseAmount";
+                        i.FieldName = "RepetitiveTransactionAmount";
+                        i.Caption = "Miktar";
+                        i.CaptionStyle.Font.Bold = false;
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                    });
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpenseDate";
+                        i.FieldName = "RepetitiveTransactionDate";
+                        i.Caption = "Tarih";
+                        i.CaptionStyle.Font.Bold = false;
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+
+
+                    });
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpenseCaretgoryID";
+                        i.FieldName = "RepetitiveIncomeCategoryID";
+                        i.Caption = "Kategori";
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                        i.SetNestedContent(() =>
+                        {
+                            ViewContext.Writer.Write("<div class=\"divWithStandardTextBox\">");
+                            ViewContext.Writer.Write(Html.DropDownListFor(m => m.TransactionCategory.Category, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" }));
+                            ViewContext.Writer.Write("</div>");
+                        });
+
+
+
+
+                    });
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpensePeriod";
+                        i.FieldName = "PeriodAmount";
+                        i.Caption = "Ne kadar sürede bir?";
+                        i.CaptionStyle.Font.Bold = false;
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                    });
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpensePeriodTypeID";
+                        i.FieldName = "PeriodTypeID";
+                        i.Caption = "Süre Tipi";
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                        i.SetNestedContent(() =>
+                        {
+                            ViewContext.Writer.Write("<div class=\"divWithStandardTextBox\">");
+                            ViewContext.Writer.Write(Html.DropDownListFor(x => x.PeriodType.PeriodTypeName, (List<SelectListItem>)ViewBag.PeriodTypeNames, new { @class = "form-control" }));
+                            ViewContext.Writer.Write("</div>");
+                        });
+
+                    });
+
+                    s.Items.Add(i =>
+                    {
+                        i.Name = "RepetitiveExpenseDescription";
+                        i.FieldName = "TransactionDescription";
+                        i.Caption = "Açıklama";
+                        i.CaptionStyle.Font.Bold = false;
+                        i.CaptionStyle.Font.Name = "Coolvetica";
+                        i.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+                    });
+                    s.Items.Add(i =>
+                    {
+                        i.ShowCaption = DefaultBoolean.False;
+                        i.SetNestedContent(() =>
+                        {
+                            Html.DevExpress().Button(
+                                buttonSettings =>
+                                {
+                                    buttonSettings.Name = "RepetitiveExpensebtnUpdate";
+                                    buttonSettings.ControlStyle.CssClass = "button";
+                                    buttonSettings.Width = 80;
+                                    buttonSettings.Text = "Kaydet";
+                                    buttonSettings.UseSubmitBehavior = true;
+                                }
+                            ).Render();
+
+                        });
+                    });
+                }).Render();
+            }
+        });
+
+        settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+    }).GetHtml()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#AddRepetitiveExpense">
+        Tekrarlanan Harcama Ekle
+    </button>
+    <div class="modal fade" id="AddRepetitiveExpense" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Tekrarlanan Harcama ekle</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <form method="post" action="/Home/AddRepetitiveExpense">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Miktar</label>
+                            <input type="number" name="Amount" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Tarih</label>
+                            <input type="date" name="Date" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <input type="text" name="Description" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            @Html.DropDownListFor(m => m.TransactionCategory.Category, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>Ne kadar sürede bir?</label>
+                            <input type="number" name="Period" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Süre tipi</label>
+                            @Html.DropDownListFor(x => x.PeriodType.PeriodTypeName, (List<SelectListItem>)ViewBag.PeriodTypeNames, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
+
+
+

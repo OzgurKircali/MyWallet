@@ -1,0 +1,97 @@
+﻿@model MyWalletProject.Models.Register
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/LoginPage.css" rel="stylesheet" />
+@using System.Web.UI.WebControls
+<script>
+    function ReuturnToLogin() {
+        window.location.href = "/Account/Login";
+    }
+</script>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Register";
+}
+
+<div class="box">
+    <hr />
+    @Html.ValidationSummary()
+
+    @using (Html.BeginForm())
+    {
+        <div class="loginArea">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                @Html.DevExpress().TextBoxFor(i => i.Username, settings =>
+           {
+               settings.Properties.NullDisplayText = "Kullanıcı Adı";
+               settings.Width = Unit.Percentage(100);
+               settings.ControlStyle.CssClass = "textBox";
+
+           }).GetHtml()
+            </div>
+
+            <div class="form-group">
+                <label>E-posta Adresi</label>
+                @Html.DevExpress().TextBoxFor(i => i.Email, settings =>
+           {
+               settings.Properties.NullDisplayText = "E-posta Adresi";
+               settings.Width = Unit.Percentage(100);
+               settings.ControlStyle.CssClass = "textBox";
+
+           }).GetHtml()
+            </div>
+
+            <div class="form-group">
+                <label>Şifre</label>
+                @Html.DevExpress().TextBoxFor(i => i.Password, settings =>
+           {
+               settings.Properties.NullDisplayText = "Şifre";
+               settings.Properties.Password = true;
+               settings.Width = Unit.Percentage(100);
+               settings.ControlStyle.CssClass = "textBox";
+           }).GetHtml()
+            </div>
+
+            <div class="form-group">
+                <label>Şifre Tekrar</label>
+                @Html.DevExpress().TextBoxFor(i => i.PasswordControl, settings =>
+           {
+               settings.Properties.NullDisplayText = "Şifre Tekrar";
+               settings.Properties.Password = true;
+               settings.Width = Unit.Percentage(100);
+               settings.ControlStyle.CssClass = "textBox";
+           }).GetHtml()
+            </div>
+
+            <div class="buttons">
+                @Html.DevExpress().Button(settings =>
+           {
+               settings.Name = "SaveButton";
+               settings.Text = "Kaydet";
+               settings.UseSubmitBehavior = true;
+               settings.ControlStyle.CssClass = "button";
+           }).GetHtml()
+
+                @Html.DevExpress().Button(settings =>
+           {
+               settings.Name = "LoginPageButton";
+               settings.Text = "Giriş Ekranı";
+               settings.ClientSideEvents.Click = "function (s,e) {ReuturnToLogin(); }";
+               settings.ControlStyle.CssClass = "buttonRegister";
+           }).GetHtml()
+
+            </div>
+        </div>
+    }
+</div>
+
+

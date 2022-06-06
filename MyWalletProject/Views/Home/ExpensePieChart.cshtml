@@ -1,0 +1,42 @@
+﻿
+
+@(Html.DevExtreme().PieChart()
+    .ID("pie")
+    .Size(s => s.Width(570))
+    .Palette(VizPalette.DarkViolet)
+    .DataSource(x => x
+    .Array()
+    .Data(Model)
+    )
+
+    .Series(s=> s
+        .Add()
+        .ArgumentField("CategoryName")
+        .ValueField("Sum")
+
+        .Label(l => l
+            .Visible(true)
+            .Connector(c => c
+                .Visible(true)
+                .Width(1)
+                )
+            )
+        )
+    .Legend(l => l
+                .VerticalAlignment(VerticalEdge.Bottom)
+                .HorizontalAlignment(HorizontalAlignment.Center)
+                .ItemTextPosition(Position.Bottom)
+                .RowCount(1)
+            )
+
+
+    )
+
+
+
+
+
+
+
+
+

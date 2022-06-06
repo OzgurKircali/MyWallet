@@ -1,0 +1,84 @@
+﻿
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "IncomeView";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "IncomeViewPartial" };
+
+
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = 400;
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+
+        settings.KeyFieldName = "TransactionID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.SettingsPager.PageSize = 13;
+
+
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionDate";
+            c.Caption = "Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            c.CellStyle.Font.Size = 10;
+        });
+
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionAmount";
+            c.Caption = "Miktar";
+            c.CellStyle.Font.Size = 14;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkGreen;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionDescription";
+            c.Caption = "Açıklama";
+            c.CellStyle.Font.Size = 10;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "CategoryID";
+            c.Caption = "Kategori";
+            c.CellStyle.Font.Size = 10;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetCategoriesData();
+                p.TextField = "Category";
+                p.ValueField = "CategoryID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+
+
+
+
+
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

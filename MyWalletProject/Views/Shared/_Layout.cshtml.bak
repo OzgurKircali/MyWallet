@@ -1,0 +1,195 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+)
+
+<link href="~/Content/NavigationBar.css" rel="stylesheet" />
+@using System.Web.UI.WebControls
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>MyWallet</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    @*@Html.DevExpress().NavBar(settings =>
+{
+    settings.Name = "NavBar";
+    settings.AllowSelectItem = true;
+    settings.EnableAnimation = true;
+    settings.AllowExpanding = true;
+    settings.ControlStyle.CssClass = "navBar";
+    settings.AutoCollapse = false;
+    
+
+
+
+
+
+    settings.Groups.Add(group =>
+    {
+        group.Items.Add("Aylık Durum", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Home", Action = "Index" });
+        group.Items.Add("Gelir-Gider Tablosu", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Transaction", Action = "TransactionView" });
+        group.Items.Add("Tekrarlanan Gelir-Giderler", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RepetitiveTransaction", Action = "RepetitiveTransactionView" });
+        group.Items.Add("Yatırımlarım", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Investment", Action = "InvestmentView" });
+        group.Items.Add("Kredilerim", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Loan", Action = "LoanView" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Denge Tabloları";
+        group.Items.Add("Günlük Denge Tablosu", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DailyView", Action = "DailyView" });
+        group.Items.Add("Aylık Denge Tablosu", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "MonthlyView", Action = "MonthlyView" });
+        group.Items.Add("Yıllık Denge Tablosu", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AnnualyView", Action = "AnnualyView" });
+    });
+}).GetHtml()
+
+
+    @RenderBody()*@
+</body>
+</html>
+
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>MyWallet</title>
+        <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    </head>
+
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <a href="https://localhost:44352/home/index" class="brand-link">
+                    <img src="~/AdminLTE-3.0.4/dist/img/MyWalletIcon.png" alt="AdminLTE Logo" class="brand-image"
+                         style="opacity: .8">
+                    <span class="brand-text font-weight-bold">MyWallet</span>
+                </a>
+                <div class="sidebar">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                        <div class="info">
+                            <a href="#" class="d-block">@User.Identity.Name</a>
+                        </div>
+                    </div>
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                            <li class="nav-item">
+                                <a href="https://localhost:44352/home/index" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Aylık Durum
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://localhost:44352/Transaction/TransactionView" class="nav-link">
+                                    <i class="nav-icon fas fa-exchange-alt"></i>
+                                    <p>
+                                        Gelir-Gider Tablosu
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://localhost:44352/RepetitiveTransaction/RepetitiveTransactionView" class="nav-link">
+                                    <i class="nav-icon fas fa fa-redo-alt"></i>
+                                    <p>
+                                        Tekrarlanan Gelir-Giderler
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Denge Tabloları
+                                        <i class="right fas fa-angle-double-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="https://localhost:44352/DailyView/DailyView" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Günlük Denge Tablosu</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="https://localhost:44352/MonthlyView/MonthlyView" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Aylık Denge Tablosu</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="https://localhost:44352/AnnualyView/AnnualyView" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Yıllık Denge Tablosu</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="https://localhost:44352/Investment/InvestmentView" class="nav-link">
+                                    <i class="nav-icon fas fa-money-bill"></i>
+                                    <p>
+                                        Yatırımlarım
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="https://localhost:44352/Loan/LoanView" class="nav-link">
+                                    <i class="nav-icon fas fa-credit-card"></i>
+                                    <p>
+                                        Kredilerim
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="/Account/Logout" class="nav-link">
+                                    <i class="nav-icon fas fa-times"></i>
+                                    <p>
+                                        Çıkış Yap
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+            <div class="content-wrapper">
+                <div class="content">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
+        <script src="~/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
+        <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
+    </body>
+    </html>
+

@@ -1,0 +1,128 @@
+﻿@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@using System.Web.UI.WebControls
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "TransactionView";
+        settings.CallbackRouteValues = new { Controller = "Transaction", Action = "TransactionViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Transaction", Action = "TransactionViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Transaction", Action = "TransactionViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Transaction", Action = "TransactionViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = Unit.Percentage(100);
+        settings.Height = Unit.Percentage(100);
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+        settings.ControlStyle.CssClass = "context";
+
+        settings.KeyFieldName = "TransactionID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("TransactionID").Visible = false;
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionDate";
+            c.Caption = "Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            c.CellStyle.Font.Size = 14;
+
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TypeID";
+            c.Caption = "Tip";
+            c.CellStyle.Font.Size = 14;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetTypesData();
+                p.TextField = "Type";
+                p.ValueField = "TypeID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionAmount";
+            c.Caption = "Miktar";
+            c.CellStyle.Font.Size = 20;
+
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "TransactionDescription";
+            c.Caption = "Açıklama";
+            c.CellStyle.Font.Size = 14;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "CategoryID";
+            c.Caption = "Kategori";
+            c.CellStyle.Font.Size = 14;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetCategoriesData();
+                p.TextField = "Category";
+                p.ValueField = "CategoryID";
+                p.ValueType = typeof(int);
+            });
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "AutomaticOrManuelID";
+            c.Caption = "Otomatik mi?";
+            c.ReadOnly = true;
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = new MyWalletProject.Controllers.IDtoNameController().GetAutomaticOrManuelData();
+                p.TextField = "AutomaticOrManuelName";
+                p.ValueField = "AutomaticOrManuelID";
+                p.ValueType = typeof(int);
+
+
+            });
+
+            c.CellStyle.Font.Size = 14;
+        });
+
+
+
+        settings.Columns.Add("Username").Visible = false;
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

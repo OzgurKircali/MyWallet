@@ -1,0 +1,71 @@
+﻿
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "RepetitiveExpenseView";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "RepetitiveExpenseViewPartial" };
+
+
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.Width = 400;
+        settings.Styles.Cell.Font.Name = "Coolvetica";
+
+        settings.KeyFieldName = "RepetitiveTransactionID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.SettingsPager.PageSize = 21;
+
+
+
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionNextDate";
+            c.Caption = "Gerçekleşeceği Tarih";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            c.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            c.CellStyle.Font.Size = 10;
+        });
+
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionAmount";
+            c.Caption = "Miktar";
+            c.CellStyle.Font.Size = 14;
+            c.CellStyle.ForeColor = System.Drawing.Color.DarkRed;
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "RepetitiveTransactionDescription";
+            c.Caption = "Açıklama";
+            c.CellStyle.Font.Size = 10;
+        });
+
+
+
+
+
+
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

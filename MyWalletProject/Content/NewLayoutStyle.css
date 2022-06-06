@@ -1,0 +1,122 @@
+﻿
+
+.navigation {
+    margin: 0 auto;
+    display: block;
+    text-align: left;
+    font-size: 18px;
+    background-color: rgb(16, 128, 200);
+    font-style:normal;
+}
+.navigation ul {
+    margin: 0px;
+    padding: 20px 0 20px 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.navigation ul li {
+    list-style: none;
+    margin: 0 auto;
+    /*border-left: 2px solid #3ca0e7;*/
+    display: inline-block;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    font-family: Coolvetica;
+}
+.navigation ul li a {
+    color: White;
+    text-decoration: none;
+}
+
+.navigation ul li a:hover {
+    cursor: pointer;
+    color: #2a34a3;
+    transition: .2s ease-in;
+    
+}
+.dropDownContent {
+    display: none;
+    
+}
+.dropDownContent li{
+    display:flex;
+}
+    .dropDownContent:hover {
+        display: block;
+        position: absolute;
+        width: 300px;
+        overflow: auto;
+        background-color: rgb(16, 128, 200);
+        padding-bottom: 10px;
+        
+    }
+.dropDown:hover + .dropDownContent {
+    display: block;
+    position: absolute;
+    width: 300px;
+    overflow: auto;
+    background-color: rgb(16, 128, 200);
+    padding-bottom:10px;
+
+}
+
+
+.navigation ul li ul li {
+    margin-top:5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.logOutDropDown {
+    display: inline-block;
+    /*background-image: url('account32px.png');
+    height: 32px;
+    width: 32px;
+    display: block;*/
+   /* margin-left: 10px;*/
+}
+    .icon:hover {
+        background-image: url('account32pxBlue.png');
+        transition: .2s ease-in;
+    }
+
+.iconDropDownContent {
+    display: none;
+}
+.logOutDropDown:hover + .iconDropDownContent {
+    display: block;
+    position: absolute;
+    margin-top:22px;
+    right: 0;
+    width: 150px;
+    overflow: auto;
+    background-color: rgb(16, 128, 200);
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+.iconDropDownContent:hover {
+    display: block;
+    margin-top: 22px;
+    position: absolute;
+    right: 0;
+    width: 150px;
+    overflow: auto;
+    background-color: rgb(16, 128, 200);
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+
+
+
+
+.bodyContent {
+    background-image: linear-gradient(rgb(78, 88, 212, 0.2), rgba(219, 222, 252, 0.1))
+}
+.logOut {
+margin-left:680px;
+}
+
+
+
