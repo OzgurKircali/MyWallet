@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace MyWalletService
 {
@@ -13,7 +14,7 @@ namespace MyWalletService
         Context DbContext = new Context();
 
 
-        public void Main()
+        public void Main(object source, ElapsedEventArgs e)
         {
 
 
@@ -53,8 +54,8 @@ namespace MyWalletService
                         item.RepetitiveTransactionNextDate = DateTime.Now.AddYears(item.PeriodAmount);
                     }
                     DbContext.SaveChanges();
-
-
+                    
+                  
 
 
                 }

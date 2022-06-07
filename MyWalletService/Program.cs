@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceProcess;
+using System.Timers;
 
 namespace MyWalletService
 {
@@ -16,19 +17,33 @@ namespace MyWalletService
 
         public class Service : ServiceBase
         {
+
+            
+            Timer timer = new Timer();
             public Service()
             {
+                
                 ServiceName = Program.ServiceName;
             }
 
             protected override void OnStart(string[] args)
             {
-                Program.Start(args);
+                RepetitiveToTransactions transactions = new RepetitiveToTransactions();
+                //tick
+                timer.Interval = 1000 * 10;
+                timer.Enabled = true;
+                timer.Start();               
+                timer.Elapsed += transactions.Main;
+                //Program.Start(args);
             }
 
             protected override void OnStop()
             {
-                Program.Stop();
+
+                //release
+                timer.Dispose();
+                
+                //Program.Stop();
             }
         }
 
